@@ -57,7 +57,7 @@ def run_command():
         os.system(cmd)
         output ="ok"
     except :
-        output = f"Erro ao executar o comando:\n{e.output}"
+        output = f"Erro ao executar o comando:\n"
 
     return render_template_string(HTML_RESULT, output=output)
 
