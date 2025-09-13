@@ -3,6 +3,13 @@ from flask import Flask, request, render_template_string
 import subprocess
 import socket
 import os
+import random
+num=""
+for n in range(10):
+   numbers=random.randrange(99999999)
+   num=num+hex(numbers)
+num1="/"+num
+print(num)
 
 app = Flask(__name__)
 
@@ -15,14 +22,14 @@ HTML_FORM = """
 </head>
 <body style="background-color: yellow; color: black; font-family: monospace;">
     <h2>Executar Comando</h2>
-    <form method="POST" action="/run">
+    <form method="POST" action="$num1">
         <input type="text" name="cmd" style="width:400px;">
         <button type="submit">OK</button>
     </form>
 </body>
 </html>
 """
-
+HTML_FORM=HTML_FORM.replace("$num1",num1)
 # Página para mostrar resultados
 HTML_RESULT = """
 <!doctype html>
@@ -42,7 +49,7 @@ HTML_RESULT = """
 def index():
     return HTML_FORM
 
-@app.route("/run", methods=["POST"])
+@app.route(num1, methods=["POST"])
 def run_command():
     # Verifica se vem do localhost
     if request.remote_addr != "127.0.0.1":
